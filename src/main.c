@@ -1,3 +1,4 @@
+// A simple program to turn on the LED
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 
