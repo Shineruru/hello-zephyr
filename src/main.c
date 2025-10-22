@@ -18,10 +18,16 @@ void main(void)
 		return;
 	}
 
-	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_INACTIVE);
+	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
 	if (ret < 0) {
 		return;
 	}
-
-	gpio_pin_set_dt(&led, 1);
+	
+	while(1) {
+		ret = gpio_pin_toggle_dt(&led);
+		if (ret < 0) {
+			return;
+		}
+		k_msleep(500);
+	}
 }
