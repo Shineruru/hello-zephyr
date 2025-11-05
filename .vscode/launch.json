@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Zephyr Debug",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "D:/CloudStation/SideProject/Zephyr/zephyrproject/build_hello/zephyr/zephyr.elf",
+            "device": "STM32F091RC",
+            "configFiles": [
+                "board/st_nucleo_f0.cfg"
+            ],
+            "svdFile":
+"D:/CloudStation/SideProject/Zephyr/zephyrproject/modules/hal/stm32/stm32cube/stm32f0xx/soc/STM32F091xC.svd"
+,
+            "runToMain": true
+        }
+    ]
+}
