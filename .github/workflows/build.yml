@@ -1,38 +1,27 @@
-name: Build Zephyr Project
+name: Zephyr Build
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push, pull_request]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: zephyrprojectrtos/zephyr-build:latest
+ 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        submodules: 'recursive'
-
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y git cmake ninja-build gperf ccache dfu-util device-tree-compiler wget \
-        python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
-        make gcc gcc-multilib g++-multilib libsdl2-dev
-
-    - name: Install west
-      run: pip3 install west
-
-    - name: Initialize west
-      run: west init -l .
-
-    - name: Update west modules
-      run: west update
-
-    - name: Export Zephyr CMake package
-      run: west zephyr-export
-
-    - name: Build the application
-      run: west build -b nucleo_f091rc
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: main
+ 
+      - name: West Init
+        working-directory: main
+        run: west init -l .
+ 
+      - name: West Update
+        working-directory: main
+        run: west update
+ 
+      - name: West Build
+        working-directory: main
+        run: west build -b nucleo_f091rc hello_zephyr
